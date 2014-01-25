@@ -12,21 +12,12 @@ module.exports = function (grunt, options) {
   var fs = require('fs');
   var hooker = require('hooker');
 
-  // Help to correct Windows paths.
-  var unixifyPath = function (filepath) {
-    if (process.platform === 'win32') {
-      return filepath.replace(/\\/g, '/');
-    } else {
-      return filepath;
-    }
-  };
-
   // Honor the no-write option.
   var nowrite = grunt.option('no-write');
 
   // Validate parameters and set to defaults.
   options = options || {};
-  options.filePath = unixifyPath(options.filePath || './logs/grunt.log');
+  options.filePath = (options.filePath || './logs/grunt.log').replace(/\\/g, '/');
   options.clearLogFile = !!options.clearLogFile || false;
 
   if (!nowrite)
