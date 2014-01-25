@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/brutaldev/logfile-grunt.png?branch=master)](https://travis-ci.org/brutaldev/logfile-grunt)
 [![Dependencies](https://david-dm.org/brutaldev/logfile-grunt.png)](https://david-dm.org/brutaldev/logfile-grunt)
-[![devDependencies](https://david-dm.org/ericclemmons/grunt-react/dev-status.png)](https://david-dm.org/brutaldev/logfile-grunt#info=devDependencies&view=table)
+[![DevDependencies](https://david-dm.org/brutaldev/logfile-grunt/dev-status.png)](https://david-dm.org/brutaldev/logfile-grunt#info=devDependencies&view=table)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 
