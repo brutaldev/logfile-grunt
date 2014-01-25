@@ -37,9 +37,13 @@ module.exports = function (grunt) {
       tests: ['test/*_test.js']
     }
   });
+  
+  grunt.task.registerTask('testlog', 'Save the latest test output to file.', function() {
+    require('./logfile-grunt')(grunt, { filePath: './logs/tests.log', clearLogFile: false });
+  });
 
   // Clean and run unit tests
-  grunt.registerTask('test', ['clean', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'testlog', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
