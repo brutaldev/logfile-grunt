@@ -1,6 +1,12 @@
-# logfile-grunt v0.1.0 [![Build Status](https://travis-ci.org/brutaldev/logfile-grunt.png?branch=master)](https://travis-ci.org/brutaldev/logfile-grunt) [![Dependencies](https://david-dm.org/brutaldev/logfile-grunt.png)](https://david-dm.org/brutaldev/logfile-grunt) [![devDependencies](https://david-dm.org/ericclemmons/grunt-react/dev-status.png)](https://david-dm.org/brutaldev/logfile-grunt#info=devDependencies&view=table)
+# logfile-grunt
 
-> Text file logging for Grunt and task output.
+[![Build Status](https://travis-ci.org/brutaldev/logfile-grunt.png?branch=master)](https://travis-ci.org/brutaldev/logfile-grunt)
+[![Dependencies](https://david-dm.org/brutaldev/logfile-grunt.png)](https://david-dm.org/brutaldev/logfile-grunt)
+[![devDependencies](https://david-dm.org/ericclemmons/grunt-react/dev-status.png)](https://david-dm.org/brutaldev/logfile-grunt#info=devDependencies&view=table)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+
+> Simple text file logging for Grunt and task output.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.0`
@@ -37,7 +43,7 @@ Setting `clearLogFile` to `true` will ensure the log file emptied each time you 
 ### Usage Examples
 
 #### Default Options
-In this example with no options, all the output you see in the console from both Grunt and running tasks will also be written to *./logs/grunt.log*.
+In this example with no options, all the output you see in the console from both Grunt and running tasks will also be written to `./logs/grunt.log`.
 
 ```js
 require('logfile-grunt')(grunt);
@@ -81,6 +87,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
  * 2014-01-25  -  v0.1.0  -  Initial release.
+ * 2014-01-25  -  v0.1.1  -  Official release.
 
 ## License
 Copyright (c) 2014 Werner van Deventer. Licensed under the MIT license.

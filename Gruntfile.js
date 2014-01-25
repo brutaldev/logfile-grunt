@@ -11,7 +11,7 @@
 module.exports = function (grunt) {
   // Load grunt tasks from  package file.
   for (var key in grunt.file.readJSON('package.json').devDependencies) {
-    if (key !== 'grunt' && key.indexOf('grunt') === 0) { grunt.loadNpmTasks(key); }
+    if (key.indexOf('grunt-') === 0) { grunt.loadNpmTasks(key); }
   }
 
   // Project configuration.
@@ -37,10 +37,17 @@ module.exports = function (grunt) {
       tests: ['test/*_test.js']
     }
   });
-  
+
   grunt.task.registerTask('testlog', 'Save the latest test output to file.', function() {
-    require('./logfile-grunt')(grunt, { filePath: './logs/tests.log', clearLogFile: false });
+    require('./logfile-grunt')(grunt, { filePath: './logs/tests.log', clearLogFile: true });
   });
+
+  grunt.task.registerTask('nowrite_test', 'Used by unit tests to ensure file is not written with --no-write option.', function() {
+    require('./logfile-grunt')(grunt, { filePath: './logs/nowrite.txt' });
+  });
+  
+  // Tasks called from unit tests
+  grunt.registerTask('nowrite', ['nowrite_test']);
 
   // Clean and run unit tests
   grunt.registerTask('test', ['clean', 'testlog', 'nodeunit']);

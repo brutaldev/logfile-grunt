@@ -1,6 +1,9 @@
 'use strict';
 
 var grunt = require('grunt');
+var logfile = require('../logfile-grunt');
+var path = require('path');
+var exec = require('child_process').exec;
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -22,16 +25,54 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports.logfile = {
+exports.logfiletests = {
   setUp: function (done) {
     done();
   },
-  
-  '': function (test) {
+
+  'default options create a log file at ./logs/grunt.log':
+  function (test) {
     test.expect(1);
-    
-    test.ok(true);
+
+    logfile(grunt);
+
+    test.ok(grunt.file.exists('./logs/grunt.log'), 'Did not find the grunt.log file in the logs directory');
 
     test.done();
+  },
+
+  'passing in a custom log file should create that file including directories':
+  function (test) {
+    test.expect(1);
+
+    logfile(grunt, { filePath: './logs/testing/subdirlog.txt' });
+
+    test.ok(grunt.file.exists('./logs/testing/subdirlog.txt'), 'Did not find the subdirlog.txt file in the logs/testing directory');
+
+    test.done();
+  },
+
+  'custom paths can safely use Windows separators':
+  function (test) {
+    test.expect(1);
+
+    logfile(grunt, { filePath: '.\\logs\\windows.txt' });
+
+    test.ok(grunt.file.exists('./logs/windows.txt'), 'Did not find the windows.txt file in the logs directory');
+
+    test.done();
+  },
+
+  'log file should not be created or written to if the no-write option was provided to Grunt':
+  function (test) {
+    test.expect(2);
+
+    exec('grunt nowrite --no-write', { cwd: path.join(__dirname, '..') },
+      function(error, stdout) {
+        test.ifError(error);
+        test.ok(!grunt.file.exists('./logs/nowrite.txt'), 'Created the nowrite.txt file when no-write was true');
+        test.done();
+      }
+    );
   }
 };

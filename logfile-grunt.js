@@ -11,7 +11,7 @@
 module.exports = function (grunt, options) {
   var fs = require('fs');
   var hooker = require('hooker');
-  
+
   // Help to correct Windows paths.
   var unixifyPath = function (filepath) {
     if (process.platform === 'win32') {
@@ -31,7 +31,7 @@ module.exports = function (grunt, options) {
 
   if (!nowrite)
   {
-    grunt.log.writeln('Grunt and task output will also be logged to ' + options.filePath);
+    grunt.log.writeln('Grunt and task output will also be logged to "' + options.filePath + '"');
 
     // Create the file if it does not exist, Grunt creates the directories and everything for us.
     if (!grunt.file.exists(options.filePath)) {
@@ -55,7 +55,6 @@ module.exports = function (grunt, options) {
   });
 
   process.on('exit', function () {
-    console.log('hey!!!');
     hooker.unhook(process.stdout, 'write');
   });
 };
