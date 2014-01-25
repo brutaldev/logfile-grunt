@@ -1,6 +1,6 @@
 /*
- * grunt-logfile
- * https://github.com/brutaldev/grunt-logfile
+ * logfile-grunt
+ * https://github.com/brutaldev/logfile-grunt
  *
  * Copyright (c) 2014 Werner van Deventer
  * Licensed under the MIT license.
@@ -8,20 +8,7 @@
 
 'use strict';
 
-// Hack taken from time-grunt to unhook on process exit.
-var interval = null;
-var originalExit = process.exit;
-var exit = function (exitCode) {
-  clearInterval(interval);
-  process.emit('timegruntexit', exitCode);
-  exit = function () {};
-};
-
-interval = setInterval(function () { process.exit = exit; }, 100);
-process.exit = exit;
-
 module.exports = function (grunt, options) {
-
   var fs = require('fs');
   var hooker = require('hooker');
 
@@ -53,22 +40,12 @@ module.exports = function (grunt, options) {
       if (result && !nowrite) {
         fs.appendFileSync(options.filePath, grunt.util.normalizelf(grunt.log.uncolor(result)));
       }
-
       return result;
     }
   });
 
-  process.on('SIGINT', function () {
-    process.exit();
-  });
-
-  process.once('timegruntexit', function (exitCode) {
-    clearInterval(interval);
-    process.exit = originalExit;
-
+  process.on('exit', function () {
+    console.log('hey!!!');
     hooker.unhook(process.stdout, 'write');
-
-    process.exit(exitCode);
   });
-
 };

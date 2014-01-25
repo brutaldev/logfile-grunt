@@ -10,14 +10,17 @@
     "url": "http://brutaldev.com"
   },
   "keywords": [
-    "gruntplugin",
+    "grunt",
     "log",
     "logfile",
     "logging",
     "logger",
     "logfile-grunt"
   ],
-  "main": "Gruntfile.js",
+  "files": [
+    "logfile-grunt.js"
+  ],
+  "main": "logfile-grunt.js",
   "engines": {
     "node": ">= 0.8.0"
   },
