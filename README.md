@@ -88,6 +88,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
  * 2014-01-25  -  v0.1.0  -  Initial release.
  * 2014-01-25  -  v0.1.1  -  Official release.
+ * 2014-01-27  -  v0.1.2  -  Updated NPM keywords.
 
 ## License
 Copyright (c) 2014 Werner van Deventer. Licensed under the MIT license.
