@@ -1,6 +1,13 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.8"
+- '0.10'
+- '0.8'
+deploy:
+  provider: npm
+  email: werner@brutaldev.com
+  api_key:
+    secure: ZCnYhnTpKp/WwVvgywOlvwDpaVqmejXq2SfLr6Yyeh7kNro7i2fwlOXWSeP1S3yisHZa/ZitqVnhu9Ba8IU+Jx/i0MVUm2WoE8OlpiZ1Z7Y5QT5miZ4B7V5papmCl/+dt9dvsNNPzIN2FImfpmecXcQaOIJ0zjOsOC8tf3cVcl8=
+  on:
+    repo: brutaldev/logfile-grunt
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
