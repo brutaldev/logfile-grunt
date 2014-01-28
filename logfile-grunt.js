@@ -39,8 +39,9 @@ module.exports = function (grunt, options) {
   hooker.hook(process.stdout, 'write', {
     pre: function (result) {
       if (result && !nowrite) {
-        fs.appendFileSync(options.filePath, grunt.util.normalizelf(grunt.log.uncolor(result)));
+        fs.appendFileSync(options.filePath, grunt.util.normalizelf(grunt.log.uncolor(result.toString())));
       }
+      
       return result;
     }
   });

@@ -74,5 +74,16 @@ exports.logfiletests = {
         test.done();
       }
     );
+  },
+  
+  'sending buffer obejcts down the stream should not cause an error':
+  function (test) {
+    test.expect(1);
+
+    logfile(grunt, { filePath: '.\\logs\\objects.txt' });
+
+    test.doesNotThrow(function () { process.stdout.write(new Buffer('1234567890')); });
+
+    test.done();
   }
 };
