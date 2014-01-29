@@ -9,6 +9,5 @@ deploy:
     secure: DUOk83gjmwyAFcGj1bfXv4QcY5aZfRRoT7g7YKS4fluLhSEaUUQBBowAP8ZmRGuBIIV2J7oqvzMyfTMc7wnVqkli8MLriki11XvaI40z9DooVBgLaH/nqx623qb1rDOj/vn/r3M0EZeSeIWbdrNjVNBsR3COfuRt6cL/OepjzQk=
   on:
     repo: brutaldev/logfile-grunt
-    node: 0.10
 before_script:
 - npm install -g grunt-cli
