@@ -1,6 +1,6 @@
 {
   "name": "logfile-grunt",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Simple text file logging for Grunt and task output.",
   "homepage": "https://github.com/brutaldev/logfile-grunt",
   "bugs": "https://github.com/brutaldev/logfile-grunt/issues",
