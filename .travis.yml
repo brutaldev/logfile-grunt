@@ -6,7 +6,7 @@ deploy:
   provider: npm
   email: werner@brutaldev.com
   api_key:
-    secure: ZCnYhnTpKp/WwVvgywOlvwDpaVqmejXq2SfLr6Yyeh7kNro7i2fwlOXWSeP1S3yisHZa/ZitqVnhu9Ba8IU+Jx/i0MVUm2WoE8OlpiZ1Z7Y5QT5miZ4B7V5papmCl/+dt9dvsNNPzIN2FImfpmecXcQaOIJ0zjOsOC8tf3cVcl8=
+    secure: BaCIt9eZ+5HLA/0h8E49+B5MxK+ApUyh2XjGXd+PRRlAO5pGUEYxSNp3Cno4UO5DbsmLdx3ARxS9I71okGtN7qBu84qNvjgFdviCcYzwy+WhdbbI0B41N+sPRWREWUABYZE7/8d/JwXs9W4moNiiH/+l+O+z2LFA6nEawkWvo9c=
   on:
     repo: brutaldev/logfile-grunt
 before_script:
