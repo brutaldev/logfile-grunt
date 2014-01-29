@@ -6,8 +6,9 @@ deploy:
   provider: npm
   email: werner@brutaldev.com
   api_key:
-    secure: BaCIt9eZ+5HLA/0h8E49+B5MxK+ApUyh2XjGXd+PRRlAO5pGUEYxSNp3Cno4UO5DbsmLdx3ARxS9I71okGtN7qBu84qNvjgFdviCcYzwy+WhdbbI0B41N+sPRWREWUABYZE7/8d/JwXs9W4moNiiH/+l+O+z2LFA6nEawkWvo9c=
+    secure: DUOk83gjmwyAFcGj1bfXv4QcY5aZfRRoT7g7YKS4fluLhSEaUUQBBowAP8ZmRGuBIIV2J7oqvzMyfTMc7wnVqkli8MLriki11XvaI40z9DooVBgLaH/nqx623qb1rDOj/vn/r3M0EZeSeIWbdrNjVNBsR3COfuRt6cL/OepjzQk=
   on:
     repo: brutaldev/logfile-grunt
+    node: 0.10
 before_script:
 - npm install -g grunt-cli
