@@ -40,10 +40,16 @@ Default value: `false`
 
 Setting `clearLogFile` to `true` will ensure the log file emptied each time you run this task. Setting `clearLogFile` to `false` will continue to append to the same log file each time [Grunt](http://gruntjs.com/) is executed.
 
+#### options.keepColors
+Type: `Boolean`
+Default value: `false`
+
+Setting `keepColors` to `true` will retain the console color codes and write them to the log file. Note that the console color codes can often make the text log difficult to read.
+
 ### Usage Examples
 
 #### Default Options
-In this example with no options, all the output you see in the console from both Grunt and running tasks will also be written to `./logs/grunt.log`.
+In this example with no options, all the output you see in the console from both Grunt and running tasks will also be written to `./logs/grunt.log`. The log file text will have console color codes stripped out by default as well.
 
 ```js
 require('logfile-grunt')(grunt);
@@ -61,6 +67,13 @@ In this example, the custom log file will be cleared on every time [Grunt](http:
 
 ```js
 require('logfile-grunt')(grunt, { filePath: './logs/ClearedOnEveryRun.log', clearLogFile: true });
+```
+
+#### Keep Colors Option
+In this example, the log file will retain the console color codes used by [Grunt](http://gruntjs.com/).
+
+```js
+require('logfile-grunt')(grunt, { keepColors: true });
 ```
 
 #### Task Specific Logs
@@ -90,7 +103,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2014-01-25  -  v0.1.1  -  Official release.
  * 2014-01-27  -  v0.1.2  -  Updated NPM keywords.
  * 2014-01-28  -  v0.1.3  -  Fix crash when presented with a Buffer in the stdout stream. Works even better now printing any arb stuff coming through the stream.
- * 2014-01-29  -  v0.1.4  -  Nothing to see here, just testing Travis.
+ * 2014-01-29  -  v0.1.4  -  Added option to keep console colors in the log output.
 
 ## License
 Copyright (c) 2014 Werner van Deventer. Licensed under the MIT license.

@@ -82,7 +82,7 @@ exports.logfiletests = {
 
     logfile(grunt, { filePath: '.\\logs\\objects.txt' });
 
-    test.doesNotThrow(function () { process.stdout.write(new Buffer('1234567890')); });
+    test.doesNotThrow(function () { process.stdout.write(new Buffer('\n1234567890')); });
 
     test.done();
   }
