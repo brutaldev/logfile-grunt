@@ -2,7 +2,7 @@
  * logfile-grunt
  * https://github.com/brutaldev/logfile-grunt
  *
- * Copyright (c) 2014 Werner van Deventer
+ * Copyright (c) 2015 Werner van Deventer
  * Licensed under the MIT license.
  */
 
@@ -14,6 +14,15 @@ module.exports = function (grunt, options) {
 
   // Honor the no-write option.
   var nowrite = grunt.option('no-write');
+  
+  var preHook = function (result) {
+    if (result && !nowrite) {
+      var output = result.toString();
+      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)));
+    }
+
+    return result;
+  };
 
   // Validate parameters and set to defaults.
   options = options || {};
@@ -38,17 +47,16 @@ module.exports = function (grunt, options) {
 
   // Hook the stdout.write function.
   hooker.hook(process.stdout, 'write', {
-    pre: function (result) {
-      if (result && !nowrite) {
-        var output = result.toString();
-        fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)));
-      }
-
-      return result;
-    }
+    pre: preHook
+  });
+  
+    // Hook the stderr.write function.
+  hooker.hook(process.stderr, 'write', {
+    pre: preHook
   });
 
   process.on('exit', function () {
     hooker.unhook(process.stdout, 'write');
+    hooker.unhook(process.stderr, 'write');
   });
 };

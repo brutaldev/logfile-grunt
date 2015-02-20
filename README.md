@@ -105,6 +105,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2014-01-28  -  v0.1.3  -  Fix crash when presented with a Buffer in the stdout stream. Works even better now printing any arb stuff coming through the stream.
  * 2014-03-10  -  v0.1.4  -  Added option to keep console colors in the log output.
  * 2014-03-10  -  v0.1.5  -  Keep NPM version numbers happy.
+ * 2015-02-20  -  v0.1.6  -  Hook stderr as well to log exceptions.
 
 ## License
 Copyright (c) 2014 Werner van Deventer. Licensed under the MIT license.
