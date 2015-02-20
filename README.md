@@ -108,4 +108,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2015-02-20  -  v0.1.6  -  Hook stderr as well to log exceptions.
 
 ## License
-Copyright (c) 2014 Werner van Deventer. Licensed under the MIT license.
+Copyright (c) 2015 Werner van Deventer. Licensed under the MIT license.
