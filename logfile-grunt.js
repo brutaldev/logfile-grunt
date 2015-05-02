@@ -8,21 +8,30 @@
 
 'use strict';
 
+var hooker = require('hooker');
+var hook = new (require('events').EventEmitter);
+
+// Hook the stdout.write function.
+hooker.hook(process.stdout, 'write', {
+  pre: hook.emit.bind(hook, 'write')
+});
+
+// Hook the stderr.write function.
+hooker.hook(process.stderr, 'write', {
+  pre: hook.emit.bind(hook, 'write')
+});
+
+process.on('exit', function () {
+  hook.removeAllListeners();
+  hooker.unhook(process.stdout, 'write');
+  hooker.unhook(process.stderr, 'write');
+});
+
 module.exports = function (grunt, options) {
   var fs = require('fs');
-  var hooker = require('hooker');
 
   // Honor the no-write option.
   var nowrite = grunt.option('no-write');
-  
-  var preHook = function (result) {
-    if (result && !nowrite) {
-      var output = result.toString();
-      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)));
-    }
-
-    return result;
-  };
 
   // Validate parameters and set to defaults.
   options = options || {};
@@ -45,18 +54,10 @@ module.exports = function (grunt, options) {
     }
   }
 
-  // Hook the stdout.write function.
-  hooker.hook(process.stdout, 'write', {
-    pre: preHook
-  });
-  
-    // Hook the stderr.write function.
-  hooker.hook(process.stderr, 'write', {
-    pre: preHook
-  });
-
-  process.on('exit', function () {
-    hooker.unhook(process.stdout, 'write');
-    hooker.unhook(process.stderr, 'write');
+  hook.on('write', function (result) {
+    if (result && !nowrite) {
+      var output = result.toString();
+      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)));
+    }
   });
 };
