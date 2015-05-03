@@ -17,7 +17,7 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install logfile-grunt --save-dev
 ```
 
-Once the plugin has been installed, the simplest way to enable it inside your [Gruntfile](http://gruntjs.com/sample-gruntfile) is with this line of JavaScript:
+Once the plugin has been installed, the simplest way to enable it inside your [Gruntfile](http://gruntjs.com/sample-gruntfile) is with this line of JavaScript at the top of your [Gruntfile](http://gruntjs.com/sample-gruntfile):
 
 ```js
 require('logfile-grunt')(grunt);
@@ -77,23 +77,45 @@ require('logfile-grunt')(grunt, { keepColors: true });
 ```
 
 #### Task Specific Logs
-The normal usage would be to `require` the plugin at the beginning of your [Gruntfile](http://gruntjs.com/sample-gruntfile) so that all output will be logged no matter what task you run. If you need to send output to different log files depending on the task, you will need to performs the `require` inside a `taskFunction` which can be provided when you [register a task](http://gruntjs.com/api/grunt.task#creating-tasks).
+The normal usage would be to `require` the plugin at the beginning of your [Gruntfile](http://gruntjs.com/sample-gruntfile) so that all output will be logged no matter what task you run. If you need to send output to different log files depending on the task, you will need to start the logger inside a `taskFunction` which can be provided when you [register a task](http://gruntjs.com/api/grunt.task#creating-tasks).
 
 ```js
+var logfile = require('logfile-grunt');
+
 grunt.task.registerTask('devlog', 'Keep appending everything to a log file.', function() {
-  require('logfile-grunt')(grunt, { filePath: './logs/MyDevLog.txt', clearLogFile: false });
+  logfile(grunt, { filePath: './logs/MyDevLog.txt', clearLogFile: false });
 });
 
 grunt.task.registerTask('buildlog', 'Create a new release build log files on each run.', function() {
-  require('logfile-grunt')(grunt, { filePath: './dist/build.log', clearLogFile: true });
+  logfile(grunt, { filePath: './dist/build.log', clearLogFile: true });
 });
 
-// Then include these tasks inside other tasks.
-// Make sure it's the first one so that all output is written to the log file.
-task.registerTask('default', ['devlog', 'jshint', 'qunit', 'concat', 'uglify']);
-task.registerTask('dist', ['buildlog', 'concat:dist', 'uglify:dist']);
-```
+#### Using Concurrent and Parallelize
+Concurrent plugins such as [grunt-concurrent](https://github.com/sindresorhus/grunt-concurrent) and [grunt-parallelize](https://github.com/teppeis/grunt-parallelize) spawn new tasks and can also alter the `stdout` and `stderr` streams. To ensure logging is reliable and all output spawned tasks is also logged, `require` logfile-grunt outside of your module export and start the logger inside the tasks that trigger concurrent tasks.
 
+```js
+var logfile = require('logfile-grunt');
+
+module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-concurrent');
+
+  grunt.registerTask('log', 'Log to the console.', function (message) {
+    console.log(message);
+  });
+
+  grunt.registerTask('default', 'Log to the console.', function () {
+    // Start logging before any concurrent tasks are created.
+    logfile(grunt);
+    grunt.task.run(['concurrent:log', 'log:done']);
+  });
+
+  grunt.initConfig({
+    concurrent: {
+        log: ['log:one', 'log:two']
+    }
+  });
+};
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
@@ -106,6 +128,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2014-03-10  -  v0.1.4  -  Added option to keep console colors in the log output.
  * 2014-03-10  -  v0.1.5  -  Keep NPM version numbers happy.
  * 2015-02-20  -  v0.1.6  -  Hook stderr as well to log exceptions.
+ * 2015-05-03  -  v0.2.0  -  Merged changes from [Aliaksei Sapach](https://github.com/asapach) and updated documentation on dealing with concurrent plugins.
 
 ## License
 Copyright (c) 2015 Werner van Deventer. Licensed under the MIT license.

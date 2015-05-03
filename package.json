@@ -1,13 +1,13 @@
 {
   "name": "logfile-grunt",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Simple text file logging for Grunt and task output.",
   "homepage": "https://github.com/brutaldev/logfile-grunt",
   "bugs": "https://github.com/brutaldev/logfile-grunt/issues",
   "author": {
     "name": "Werner van Deventer",
     "email": "werner@brutaldev.com",
-    "url": "http://brutaldev.com"
+    "url": "https://brutaldev.com"
   },
   "keywords": [
     "grunt",
