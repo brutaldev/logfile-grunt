@@ -9,7 +9,7 @@
 'use strict';
 
 var hooker = require('hooker');
-var hook = new (require('events').EventEmitter);
+var hook = new (require('events').EventEmitter)();
 
 // Hook the stdout.write function.
 hooker.hook(process.stdout, 'write', {
