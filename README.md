@@ -100,6 +100,7 @@ task.registerTask('dist', ['buildlog', 'concat:dist', 'uglify:dist']);
 Concurrent plugins such as [grunt-concurrent](https://github.com/sindresorhus/grunt-concurrent) and [grunt-parallelize](https://github.com/teppeis/grunt-parallelize) spawn new tasks and can also alter the `stdout` and `stderr` streams. To ensure logging is reliable and all output spawned tasks is also logged, `require` logfile-grunt outside of your module export and start the logger inside the tasks that trigger concurrent tasks.
 
 ```js
+// Require `logfile-grunt` before loading other Grunt tasks
 var logfile = require('logfile-grunt');
 
 module.exports = function (grunt) {
@@ -110,7 +111,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', 'Log to the console.', function () {
-    // Start logging before any concurrent tasks are created.
+    // Start logging before any concurrent tasks are started.
     logfile(grunt);
     grunt.task.run(['concurrent:log', 'log:done']);
   });
