@@ -90,6 +90,12 @@ grunt.task.registerTask('buildlog', 'Create a new release build log files on eac
   logfile(grunt, { filePath: './dist/build.log', clearLogFile: true });
 });
 
+// Then include these tasks inside other tasks.
+// Make sure it's the first one so that all output is written to the log file.
+task.registerTask('default', ['devlog', 'jshint', 'qunit', 'concat', 'uglify']);
+task.registerTask('dist', ['buildlog', 'concat:dist', 'uglify:dist']);
+```
+
 #### Using Concurrent and Parallelize
 Concurrent plugins such as [grunt-concurrent](https://github.com/sindresorhus/grunt-concurrent) and [grunt-parallelize](https://github.com/teppeis/grunt-parallelize) spawn new tasks and can also alter the `stdout` and `stderr` streams. To ensure logging is reliable and all output spawned tasks is also logged, `require` logfile-grunt outside of your module export and start the logger inside the tasks that trigger concurrent tasks.
 
