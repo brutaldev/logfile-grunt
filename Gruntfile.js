@@ -8,6 +8,8 @@
 
 'use strict';
 
+var logfile = require('./logfile-grunt');
+
 module.exports = function (grunt) {
   // Load grunt tasks from  package file.
   for (var key in grunt.file.readJSON('package.json').devDependencies) {
@@ -35,20 +37,30 @@ module.exports = function (grunt) {
     // Unit tests.
     nodeunit: {
       tests: ['test/*_test.js']
+    },
+    
+    concurrent: {
+      log: ['log_test:-one-', 'log_test:-two-']
     }
   });
 
   grunt.task.registerTask('testlog', 'Save the latest test output to file.', function() {
-    require('./logfile-grunt')(grunt, { filePath: './logs/tests.log', clearLogFile: true });
+    logfile(grunt, { filePath: './logs/tests.log', clearLogFile: true });
+  });
+  
+  grunt.registerTask('log_test', 'Log to the console.', function (message) {
+    console.log(message);
+  });
+  
+  grunt.registerTask('concurrent_test', 'Used by unit tests to ensure concurrent logs are captured correctly.', function () {
+    logfile(grunt, { filePath: './logs/concurrent.txt' });
+    grunt.task.run(['concurrent:log', 'log_test:-three-']);
   });
 
   grunt.task.registerTask('nowrite_test', 'Used by unit tests to ensure file is not written with --no-write option.', function() {
-    require('./logfile-grunt')(grunt, { filePath: './logs/nowrite.txt' });
+    logfile(grunt, { filePath: './logs/nowrite.txt' });
   });
   
-  // Tasks called from unit tests
-  grunt.registerTask('nowrite', ['nowrite_test']);
-
   // Clean and run unit tests
   grunt.registerTask('test', ['clean', 'testlog', 'nodeunit']);
 

@@ -3,6 +3,7 @@
 var grunt = require('grunt');
 var logfile = require('../logfile-grunt');
 var path = require('path');
+var fs = require('fs');
 var exec = require('child_process').exec;
 
 /*
@@ -67,10 +68,30 @@ exports.logfiletests = {
   function (test) {
     test.expect(2);
 
-    exec('grunt nowrite --no-write', { cwd: path.join(__dirname, '..') },
+    exec('grunt nowrite_test --no-write', { cwd: path.join(__dirname, '..') },
       function(error, stdout) {
         test.ifError(error);
         test.ok(!grunt.file.exists('./logs/nowrite.txt'), 'Created the nowrite.txt file when no-write was true');
+        test.done();
+      }
+    );
+  },
+  
+  'using concurrent task plugins should still write all log text to file (Issue #3)':
+  function (test) {
+    test.expect(5);
+
+    exec('grunt concurrent_test', { cwd: path.join(__dirname, '..') },
+      function(error, stdout) {
+        test.ifError(error);
+        test.ok(grunt.file.exists('./logs/concurrent.txt'), 'Did not find the concurrent.txt file in the logs directory');
+        
+        var output = fs.readFileSync('./logs/concurrent.txt').toString();
+        
+        test.ok(output.indexOf('-one-') > -1);
+        test.ok(output.indexOf('-two-') > -1);
+        test.ok(output.indexOf('-three-') > -1);
+        
         test.done();
       }
     );
