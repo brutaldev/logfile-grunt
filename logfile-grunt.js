@@ -38,6 +38,7 @@ module.exports = function (grunt, options) {
   options.filePath = (options.filePath || './logs/grunt.log').replace(/\\/g, '/');
   options.clearLogFile = !!options.clearLogFile || false;
   options.keepColors = !!options.keepColors || false;
+  options.textEncoding = options.textEncoding || 'utf-8';
 
   if (!nowrite)
   {
@@ -45,19 +46,25 @@ module.exports = function (grunt, options) {
 
     // Create the file if it does not exist, Grunt creates the directories and everything for us.
     if (!grunt.file.exists(options.filePath)) {
-      grunt.file.write(options.filePath, '');
+      grunt.file.write(options.filePath, '', {
+        encoding: options.textEncoding
+      });
     }
 
     // Clear the log file if requested.
     if (options.clearLogFile) {
-      grunt.file.write(options.filePath, '');
+      grunt.file.write(options.filePath, '', {
+        encoding: options.textEncoding
+      });
     }
   }
 
   hook.on('write', function (result) {
     if (result && !nowrite) {
       var output = result.toString();
-      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)));
+      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)), {
+        encoding: options.textEncoding
+      });
     }
   });
 };
