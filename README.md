@@ -46,6 +46,12 @@ Default value: `false`
 
 Setting `keepColors` to `true` will retain the console color codes and write them to the log file. Note that the console color codes can often make the text log difficult to read.
 
+#### options.textEncoding
+Type: `String`
+Default value: `utf-8`
+
+Specify the encoding to use when writing to the text file.
+
 ### Usage Examples
 
 #### Default Options
@@ -136,6 +142,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2014-03-10  -  v0.1.5  -  Keep NPM version numbers happy.
  * 2015-02-20  -  v0.1.6  -  Hook stderr as well to log exceptions.
  * 2015-05-03  -  v0.2.0  -  Merged changes from [Aliaksei Sapach](https://github.com/asapach) and updated documentation on dealing with concurrent plugins.
+ * 2016-06-19  -  v0.2.1  -  Grunt peer dependency fix from [Raja Usman Haider](https://github.com/rajahu).
+ * 2016-06-22  -  v0.3.0  -  Text encoding option from [The Half Blood Prince](https://github.com/tHBp).
 
 ## License
-Copyright (c) 2015 Werner van Deventer. Licensed under the MIT license.
+Copyright (c) 2016 Werner van Deventer. Licensed under the MIT license.
