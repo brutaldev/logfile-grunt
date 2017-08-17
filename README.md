@@ -150,7 +150,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2015-05-03  -  v0.2.0  -  Merged changes from [Aliaksei Sapach](https://github.com/asapach) and updated documentation on dealing with concurrent plugins.
  * 2016-06-19  -  v0.2.1  -  Grunt peer dependency fix from [Raja Usman Haider](https://github.com/rajahu).
  * 2016-06-22  -  v0.3.0  -  Text encoding option from [The Half Blood Prince](https://github.com/tHBp).
- * 2016-06-22  -  v0.4.0  -  Regular expression exclusion option.
+ * 2017-08-17  -  v0.4.0  -  Regular expression exclusion option.
 
 ## License
 Copyright (c) 2015-2017 Werner van Deventer. Licensed under the MIT license.
