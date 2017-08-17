@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     nodeunit: {
       tests: ['test/*_test.js']
     },
-    
+
     concurrent: {
       log: ['log_test:-one-', 'log_test:-two-']
     }
@@ -47,20 +47,25 @@ module.exports = function (grunt) {
   grunt.task.registerTask('testlog', 'Save the latest test output to file.', function() {
     logfile(grunt, { filePath: './logs/tests.log', clearLogFile: true });
   });
-  
+
   grunt.registerTask('log_test', 'Log to the console.', function (message) {
     console.log(message);
   });
-  
+
   grunt.registerTask('concurrent_test', 'Used by unit tests to ensure concurrent logs are captured correctly.', function () {
     logfile(grunt, { filePath: './logs/concurrent.txt' });
     grunt.task.run(['concurrent:log', 'log_test:-three-']);
   });
 
+  grunt.task.registerTask('exclude_test', 'Used by unit tests to ensure exclusions are not written to file.', function() {
+    logfile(grunt, { filePath: './logs/exclude.txt', excludePattern: new RegExp('-four-|-TWO-|-test\\d+-', 'i') });
+    grunt.task.run(['log_test:-one-', 'log_test:-two-', 'log_test:-three-', 'log_test:-four-', 'log_test:-test12345-']);
+  });
+
   grunt.task.registerTask('nowrite_test', 'Used by unit tests to ensure file is not written with --no-write option.', function() {
     logfile(grunt, { filePath: './logs/nowrite.txt' });
   });
-  
+
   // Clean and run unit tests
   grunt.registerTask('test', ['clean', 'testlog', 'nodeunit']);
 

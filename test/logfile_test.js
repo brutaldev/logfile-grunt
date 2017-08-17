@@ -76,7 +76,7 @@ exports.logfiletests = {
       }
     );
   },
-  
+
   'using concurrent task plugins should still write all log text to file (Issue #3)':
   function (test) {
     test.expect(5);
@@ -85,18 +85,18 @@ exports.logfiletests = {
       function(error, stdout) {
         test.ifError(error);
         test.ok(grunt.file.exists('./logs/concurrent.txt'), 'Did not find the concurrent.txt file in the logs directory');
-        
+
         var output = fs.readFileSync('./logs/concurrent.txt').toString();
-        
+
         test.ok(output.indexOf('-one-') > -1);
         test.ok(output.indexOf('-two-') > -1);
         test.ok(output.indexOf('-three-') > -1);
-        
+
         test.done();
       }
     );
   },
-  
+
   'sending buffer obejcts down the stream should not cause an error':
   function (test) {
     test.expect(1);
@@ -106,5 +106,27 @@ exports.logfiletests = {
     test.doesNotThrow(function () { process.stdout.write(new Buffer('\n1234567890')); });
 
     test.done();
+  },
+
+  'ensure that excluded output is not written to file':
+  function (test) {
+    test.expect(7);
+
+    exec('grunt exclude_test', { cwd: path.join(__dirname, '..') },
+      function(error, stdout) {
+        test.ifError(error);
+        test.ok(grunt.file.exists('./logs/exclude.txt'), 'Did not find the exclude.txt file in the logs directory');
+
+        var output = fs.readFileSync('./logs/exclude.txt').toString();
+
+        test.ok(output.indexOf('-one-') > -1);
+        test.ok(output.indexOf('-two-') === -1);
+        test.ok(output.indexOf('-three-') > -1);
+        test.ok(output.indexOf('-four-') === -1);
+        test.ok(output.indexOf('-test12345-') === -1);
+
+        test.done();
+      }
+    );
   }
 };

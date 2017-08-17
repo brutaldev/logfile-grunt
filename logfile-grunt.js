@@ -2,7 +2,7 @@
  * logfile-grunt
  * https://github.com/brutaldev/logfile-grunt
  *
- * Copyright (c) 2015 Werner van Deventer
+ * Copyright (c) 2015-2017 Werner van Deventer
  * Licensed under the MIT license.
  */
 
@@ -39,6 +39,7 @@ module.exports = function (grunt, options) {
   options.clearLogFile = !!options.clearLogFile || false;
   options.keepColors = !!options.keepColors || false;
   options.textEncoding = options.textEncoding || 'utf-8';
+  options.excludePattern = options.excludePattern || null;
 
   if (!nowrite)
   {
@@ -62,9 +63,11 @@ module.exports = function (grunt, options) {
   hook.on('write', function (result) {
     if (result && !nowrite) {
       var output = result.toString();
-      fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)), {
-        encoding: options.textEncoding
-      });
+      if (options.excludePattern === null || !options.excludePattern.test(output)) {
+        fs.appendFileSync(options.filePath, grunt.util.normalizelf(options.keepColors ? output : grunt.log.uncolor(output)), {
+          encoding: options.textEncoding
+        });
+      }
     }
   });
 };

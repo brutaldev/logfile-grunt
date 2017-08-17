@@ -52,6 +52,12 @@ Default value: `utf-8`
 
 Specify the encoding to use when writing to the text file.
 
+#### options.excludePattern
+Type: `RegExp`
+Default value: null
+
+Provide a regular expression pattern to filter out certain output from being logged to file ([Issue #9](https://github.com/brutaldev/logfile-grunt/issues/9)).
+
 ### Usage Examples
 
 #### Default Options
@@ -144,6 +150,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
  * 2015-05-03  -  v0.2.0  -  Merged changes from [Aliaksei Sapach](https://github.com/asapach) and updated documentation on dealing with concurrent plugins.
  * 2016-06-19  -  v0.2.1  -  Grunt peer dependency fix from [Raja Usman Haider](https://github.com/rajahu).
  * 2016-06-22  -  v0.3.0  -  Text encoding option from [The Half Blood Prince](https://github.com/tHBp).
+ * 2016-06-22  -  v0.4.0  -  Regular expression exclusion option.
 
 ## License
-Copyright (c) 2016 Werner van Deventer. Licensed under the MIT license.
+Copyright (c) 2015-2017 Werner van Deventer. Licensed under the MIT license.
